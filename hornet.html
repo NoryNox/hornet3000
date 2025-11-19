@@ -1,3 +1,24 @@
+async function sendAlarm(imageBase64) {
+  const pos = await new Promise(resolve => navigator.geolocation.getCurrentPosition(p => resolve(p.coords)));
+  fetch("https://dein-backend.onrender.com/api/alert", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      image: imageBase64.split(',')[1],
+      lat: pos.latitude,
+      lon: pos.longitude
+    })
+  });
+}
+
+// Im Erkennungsloop:
+if (p.class === "vespa_velutina" && p.score > 0.95) {
+  canvas.toBlob(blob => {
+    const reader = new FileReader();
+    reader.onloadend = () => sendAlarm(reader.result);
+    reader.readAsDataURL(blob);
+  });
+}
 <!DOCTYPE html>
 <html lang="de">
 <head>

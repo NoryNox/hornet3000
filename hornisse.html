@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Hornissen-Wächter</title>
+</head>
+<body>
+  <video id="video" autoplay playsinline></video>
+  <canvas id="canvas"></canvas>
+  <div id="status">Lade...</div>
+
+  <script src="js/config.js"></script>
+  <script src="js/model-loader.js"></script>
+  <script src="js/alarm.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/camera.js"></script>
+  <script src="js/modes/hornisse.js"></script>
+  <script>
+    const cam = new Camera('video');
+    cam.start().then(() => {
+      startHornisse(video, canvas, status);
+    });
+  </script>
+</body>
+</html>

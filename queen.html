@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Königin finden</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4"></script>
+  <style>
+    body{background:#000;color:#FFD700;margin:0;padding:20px;text-align:center}
+    video,canvas{width:100%;max-width:640px;border:4px solid #FFD700;border-radius:12px}
+    canvas{position:absolute;top:0;left:50%;transform:translateX(-50%)}
+    #info{position:fixed;bottom:0;width:100%;background:rgba(0,0,0,0.9);padding:15px;font-size:1.5em}
+    .queen{color:#FFD700;font-size:2em}
+    .warn{color:#FF0000;animation:blink 1s infinite}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0.5}}
+  </style>
+</head>
+<body>
+  <h1>Königin finden</h1>
+  <video id="v" autoplay playsinline muted></video>
+  <canvas id="c"></canvas>
+  <div id="info">Lade Modell...</div>
+
+  <script>
+    navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}}).then(s=>v.srcObject=s);
+    v.onloadedmetadata = async () => {
+      c.width = v.videoWidth; c.height = v.videoHeight;
+      const ctx = c.getContext('2d');
+      const model = await tf.loadGraphModel('models/queen/model.json');
+      info.textContent = "Königin-Modell geladen";
+
+      setInterval(() => {
+        ctx.drawImage(v,0,0,c.width,c.height);
+        tf.tidy(() => {
+          const img = tf.browser.fromPixels(c).resizeBilinear([320,320]).expandDims(0).div(255);
+          model.executeAsync(img).then(p => {
+            let queen = false;
+            p[0].arraySync()[0].forEach(b => {
+              if (b[4] > 0.8 && b[5] === 0) { // class 0 = queen
+                queen = true;
+                const [x,y,w,h] = b.slice(0,4);
+                ctx.strokeStyle = "#FFD700"; ctx.lineWidth = 8;
+                ctx.strokeRect(x-w/2,y-h/2,w,h);
+                ctx.fillText("KÖNIGIN", x-w/2, y-h/2-20);
+              }
+            });
+            info.innerHTML = queen ? '<span class="queen">Königin gefunden!</span>' : '<span class="warn">Königin nicht sichtbar</span>';
+          });
+        });
+      }, 1000);
+    };
+  </script>
+</body>
+</html>

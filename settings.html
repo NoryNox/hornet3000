@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Einstellungen</title>
+  <style>
+    body{background:#000;color:#FFD700;margin:0;padding:20px;font-family:Arial;text-align:center}
+    h1{font-size:2em}
+    select, input, button{width:90%;padding:15px;margin:10px auto;font-size:1.2em;border-radius:12px;display:block}
+    select, input{background:#333;color:#FFD700;border:none}
+    button{background:#FFD700;color:#000;border:none;cursor:pointer}
+    .logo-row{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin:20px 0}
+    .logo-item{text-align:center}
+    .logo-item img{width:90px;height:90px;object-fit:contain}
+    .logo-item small{display:block;margin-top:5px}
+  </style>
+</head>
+<body>
+  <h1>Beekeeper Monitor – Einstellungen</h1>
+
+  <select id="model" onchange="showFields()">
+    <option value="">-- Kamera-Modell wählen --</option>
+    <option value="local">Lokale Webcam (Handy/PC)</option>
+    <option value="raspberry">Raspberry Pi Kamera</option>
+    <option value="tapo">TP-Link Tapo</option>
+    <option value="reolink">Reolink</option>
+    <option value="instar">INSTAR</option>
+    <option value="hikvision">Hikvision / HiWatch</option>
+    <option value="eufy">Eufy (Anker)</option>
+    <option value="esp32">ESP32-CAM</option>
+    <option value="custom">Andere (RTSP/MJPEG)</option>
+  </select>
+
+  <div class="logo-row">
+    <div class="logo-item"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0NSIgZmlsbD0iI2MzMmYyZiIvPjxwYXRoIGQ9Ik01MCAyMHY2MG0tMjUgLTQ1aDUwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMTUiLz48L3N2Zz4="><small>Raspberry Pi</small></div>
+    <div class="logo-item"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iIzAwY2NmZiIvPjx0ZXh0IHg9IjUwIiB5PSI1NSIgZm9udC1zaXplPSI0MCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlI8L3RleHQ+PC9zdmc+"><small>Reolink</small></div>
+    <div class="logo-item"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzAwMDAwMCIvPjx0ZXh0IHg9IjUwIiB5PSI2MCIgZm9udC1zaXplPSI1MCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkk8L3RleHQ+PC9zdmc+"><small>INSTAR</small></div>
+    <div class="logo-item"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2ZmNjYwMCIvPjx0ZXh0IHg9IjUwIiB5PSI2MCIgZm9udC1zaXplPSI0MCIgZmlsbD0iIzAwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SDwvdGV4dD48L3N2Zz4="><small>Hikvision</small></div>
+    <div class="logo-item"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0NSIgZmlsbD0iIzQwY2Q0MCIvPjx0ZXh0IHg9IjUwIiB5PSI2MCIgZm9udC1zaXplPSI0MCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlQ8L3RleHQ+PC9zdmc+"><small>Tapo</small></div>
+    <div class="logo-item"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzAwNzJmZiIvPjx0ZXh0IHg9IjUwIiB5PSI2MCIgZm9udC1zaXplPSI0MCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkU8L3RleHQ+PC9zdmc+"><small>Eufy</small></div>
+  </div>
+
+  <div id="fields" style="display:none">
+    <input id="ip" placeholder="IP-Adresse (z.B. 192.168.1.100)">
+    <input id="user" placeholder="Benutzer (meist admin)" value="admin">
+    <input id="pass" type="password" placeholder="Passwort">
+    <input id="customUrl" placeholder="RTSP/MJPEG-URL (bei Custom)">
+    <input id="cameraName" placeholder="Name dieser Kamera (z.B. Stock Eiche)">
+    <label><input type="checkbox" id="sms"> SMS-Alarme für diese Kamera</label>
+    <button onclick="saveAndBack()">Speichern & zurück</button>
+  </div>
+
+  <script>
+    const model = document.getElementById('model');
+    const fields = document.getElementById('fields');
+
+    function showFields() {
+      const val = model.value;
+      fields.style.display = val ? 'block' : 'none';
+      document.getElementById('ip').style.display = ['tapo','reolink','instar','hikvision','eufy','esp32'].includes(val) ? 'block' : 'none';
+      document.getElementById('user').style.display = ['tapo','reolink','instar','hikvision','eufy'].includes(val) ? 'block' : 'none';
+      document.getElementById('pass').style.display = ['tapo','reolink','instar','hikvision','eufy'].includes(val) ? 'block' : 'none';
+      document.getElementById('customUrl').style.display = val === 'custom' ? 'block' : 'none';
+    }
+
+    function saveAndBack() {
+      const val = model.value;
+      let url = "";
+
+      if (val === "local") url = "local";
+      if (val === "raspberry") url = "local";
+      if (val === "tapo") url = `rtsp://${document.getElementById('user').value}:${document.getElementById('pass').value}@${document.getElementById('ip').value}:554/stream1`;
+      if (val === "reolink") url = `http://${document.getElementById('ip').value}/cgi-bin/api.cgi?cmd=Snap&channel=0&rs=wow&user=${document.getElementById('user').value}&password=${document.getElementById('pass').value}`;
+      if (val === "instar") url = `http://${document.getElementById('ip').value}/tmpfs/snap.jpg`;
+      if (val === "hikvision") url = `rtsp://${document.getElementById('user').value}:${document.getElementById('pass').value}@${document.getElementById('ip').value}:554/Streaming/Channels/101`;
+      if (val === "custom") url = document.getElementById('customUrl').value;
+
+      localStorage.setItem('cameraUrl', url);
+      localStorage.setItem('cameraName', document.getElementById('cameraName').value || "Meine Kamera");
+      localStorage.setItem('wantSMS', document.getElementById('sms').checked);
+
+      alert("Kamera gespeichert! Gehe zurück zur Erkennung.");
+      location.href = "index.html";
+    }
+
+    // Beim Laden alte Werte laden
+    if (localStorage.getItem('cameraUrl')) {
+      document.body.innerHTML = "<h1>Kamera bereits eingerichtet</h1><button onclick=\"location='index.html'\">Zurück zur App</button>";
+    }
+  </script>
+</body>
+</html>

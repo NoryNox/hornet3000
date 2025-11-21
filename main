@@ -1,0 +1,40 @@
+Beekeeper-Monitor-/
+├── README.md                   ← Erklärung
+├── index.html                  ← Startseite
+├── manifest.json               ← PWA-Manifest
+├── sw.js                       ← Service Worker (offline)
+├── assets/                     ← Bilder
+│   └── icon.png                ← App-Icon (selbst erstellen oder online finden)
+├── js/                         ← JavaScript-Module
+│   ├── config.js
+│   ├── camera.js
+│   ├── model-loader.js
+│   ├── alarm.js
+│   ├── ui.js
+│   └── modes/
+│       ├── hornisse.js
+│       ├── varroa.js
+│       ├── drohnenbrut.js
+│       ├── pollen.js
+│       ├── schwarm.js
+│       └── queen.js
+├── models/                     ← KI-Modelle (Platzhalter – lade echte von Roboflow)
+│   ├── hornisse/
+│   │   └── model.json
+│   ├── varroa/
+│   │   └── model.json
+│   ├── ... (für andere)
+└── backend/                    ← FastAPI-Backend (für Alarme)
+    ├── main.py
+    ├── config.py
+    ├── database.py
+    ├── models.py
+    ├── auth.py
+    ├── routes/
+    │   ├── imker.py
+    │   ├── alert.py
+    │   └── admin.py
+    └── services/
+        ├── sms.py
+        ├── email.py
+        └── push.py
